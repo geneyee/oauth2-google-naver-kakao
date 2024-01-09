@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common.html}">
+
+<head>
+    <title>Member Join Page</title>
+</head>
+
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    회원가입
+                </div>
+                <div class="card-body">
+                    <form id="registerForm" action="/join" method="post">
+                        <input type="hidden" id="usernameExist" value="usernameExist">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">아이디</span>
+                            <input type="text" id="username" name="username" class="form-control" onkeypress="resetUsernameExist()">
+                            <button type="button" id="checkUsername" class="btn btn-secondary">중복검사</button>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">비밀번호</span>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">이메일</span>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-primary submitBtn">회원가입</button>
+                                <button type="reset" class="btn btn-secondary">취소</button>
+                            </div>
+                        </div>
+                    </form>
+                </div><!--end card body-->
+
+            </div><!--end card-->
+        </div><!-- end col-->
+    </div><!-- end row-->
+
+
+</div>
+<script layout:fragment="script" th:inline="javascript">
+
+    <!-- 아이디 중복검사 -->
+    const error = [[${error}]]
+
+    if(error && error === 'username'){
+        alert("동일한 아이디를 가진 계정이 존재합니다.")
+    }
+
+    <!-- 아이디 중복검사 버튼 -->
+    $(document).ready(function(){
+      $("#checkUsername").click(function(){
+        const username = $("#username").val();
+
+        if(username.length == 0) {
+            alert('아이디를 입력해주세요.');
+            return;
+        }
+
+        const url = "/checkUsername/" + username;
+		console.log(url);
+
+		fetch(url)
+			.then((response) => {
+				if(response.ok)
+					return response.json()
+			})
+			.catch((error) => console.log(error))
+			.then((data) => {
+		        const msg = data ? "사용할 수 없는 아이디 입니다." : "사용할 수 있는 아이디 입니다.";
+		        alert(msg)
+			});
+        });
+    });
+
+</script>
+</html>
