@@ -5,6 +5,7 @@ import com.dev.prac.spring0Auth.domain.user.UserRepository;
 import com.dev.prac.spring0Auth.dto.JoinDTO;
 import com.dev.prac.spring0Auth.exception.UsernameExistException;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +39,15 @@ public class UserService {
             throw new UsernameExistException("username exist");
         }
 
-        UserEntity user = joinDTO.toEntity();
-        user.encodePassword(passwordEncoder.encode(user.getPassword()));
-
-        userRepository.save(user);
+        // 아이디 admin이면 role.ADMIN 나머지는 role.USER
+        if(username.equals("admin")){
+            UserEntity user = joinDTO.toEntityAdmin();
+            user.encodePassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        } else {
+            UserEntity  user = joinDTO.toEntity();
+            user.encodePassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
     }
 }

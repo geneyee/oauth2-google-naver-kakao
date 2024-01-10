@@ -2,6 +2,7 @@ package com.dev.prac.spring0Auth.domain.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.userdetails.User;
 
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,4 +40,5 @@ public class UserEntity {
     public String getRoleKey() {
         return this.role.getKey();
     }
+
 }

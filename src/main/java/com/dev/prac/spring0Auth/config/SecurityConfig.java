@@ -25,7 +25,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((request)-> request
-                        .requestMatchers("/", "/login", "/join", "/checkUsername/**").permitAll()
+                        .requestMatchers("/", "/login", "/join", "/checkUsername/**", "/image/**", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/admin").hasRole(Role.ADMIN.name()) // "ADMIN"
                         .requestMatchers("/my/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name()) //"ADMIN", "USER"
                         .anyRequest().authenticated());
@@ -33,18 +33,18 @@ public class SecurityConfig {
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
-                        .permitAll());
-
-
+                        .permitAll()
+                        .loginProcessingUrl("/loginProc")
+                        .defaultSuccessUrl("/"));
 
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        // 정적자원 스프링시큐리티 적용 제외
-        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        // 정적자원 스프링시큐리티 적용 제외
+//        return (web) -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
