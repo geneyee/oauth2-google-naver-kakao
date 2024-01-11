@@ -25,7 +25,8 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests((request)-> request
-                        .requestMatchers("/", "/login", "/join", "/checkUsername/**", "/image/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/image/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/", "/login/**", "/join", "/checkUsername/**", "/role").permitAll()
                         .requestMatchers("/admin").hasRole(Role.ADMIN.name()) // "ADMIN"
                         .requestMatchers("/my/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name()) //"ADMIN", "USER"
                         .anyRequest().authenticated());
@@ -36,6 +37,18 @@ public class SecurityConfig {
                         .permitAll()
                         .loginProcessingUrl("/loginProc")
                         .defaultSuccessUrl("/"));
+
+        // 동일한 아이디로 다중 로그인 진행할 시(다른 브라우저)
+        http
+                .sessionManagement((session) -> session
+                        .maximumSessions(1) // 하나의 아이디에 대한 다중 로그인 허융개수
+                        .maxSessionsPreventsLogin(false)); // 다중 로그인 개수 초과시 기존 세션 삭제 // true : 새로운 로그인 차단
+        
+        // https://substantial-park-a17.notion.site/10-36136f5a91f647b499dbcb5a884aff72
+        // 세션 고정 공격 보호
+        http
+                .sessionManagement((session) -> session
+                        .sessionFixation().changeSessionId());
 
         return http.build();
     }

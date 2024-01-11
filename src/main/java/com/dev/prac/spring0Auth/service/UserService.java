@@ -45,7 +45,7 @@ public class UserService {
             user.encodePassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         } else {
-            UserEntity  user = joinDTO.toEntity();
+            UserEntity user = joinDTO.toEntity();
             user.encodePassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
         }
