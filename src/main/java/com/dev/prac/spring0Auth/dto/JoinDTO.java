@@ -15,24 +15,13 @@ public class JoinDTO { // 일반 회원가입
     private Role role;
     private boolean social;
 
-    public UserEntity toEntity() {
+    public UserEntity toEntity(Role role) {
         return UserEntity.builder()
                 .username(this.username)
                 .password(this.password)
                 .email(this.email)
-                .role(Role.USER)
+                .role(role)
                 .social(false)
                 .build();
     }
-
-    public UserEntity toEntityAdmin() {
-        return UserEntity.builder()
-                .username(this.username)
-                .password(this.password)
-                .email(this.email)
-                .role(Role.ADMIN)
-                .social(false)
-                .build();
-    }
-
 }

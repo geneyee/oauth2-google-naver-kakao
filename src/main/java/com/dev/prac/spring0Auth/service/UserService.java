@@ -1,5 +1,6 @@
 package com.dev.prac.spring0Auth.service;
 
+import com.dev.prac.spring0Auth.domain.user.Role;
 import com.dev.prac.spring0Auth.domain.user.UserEntity;
 import com.dev.prac.spring0Auth.domain.user.UserRepository;
 import com.dev.prac.spring0Auth.dto.JoinDTO;
@@ -39,15 +40,11 @@ public class UserService {
             throw new UsernameExistException("username exist");
         }
 
-        // 아이디 admin이면 role.ADMIN 나머지는 role.USER
-        if(username.equals("admin")){
-            UserEntity user = joinDTO.toEntityAdmin();
-            user.encodePassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        } else {
-            UserEntity user = joinDTO.toEntity();
-            user.encodePassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
-        }
+        // 아이디 admin이면 Role.ADMIN 나머지 Role.USER
+        Role role = username.equals("admin") ? Role.ADMIN : Role.USER;
+        UserEntity user = joinDTO.toEntity(role); // dto to entity
+        user.encodePassword(passwordEncoder.encode(user.getPassword())); // 비밀번호 암호화
+        
+        userRepository.save(user); // db 저장
     }
 }
