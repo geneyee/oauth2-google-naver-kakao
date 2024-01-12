@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
         collection.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return userEntity.getRoleKey();
+                return userEntity.getRoleKey(); // ROLE_
             }
         });
 
@@ -58,4 +58,9 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean isSocial() {
+        return this.userEntity.isSocial();
+    }
+
 }

@@ -1,12 +1,14 @@
 package com.dev.prac.spring0Auth.config;
 
 import com.dev.prac.spring0Auth.domain.user.Role;
+import com.dev.prac.spring0Auth.security.handler.CustomSocialLoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -31,21 +33,19 @@ public class SecurityConfig {
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
-                        .permitAll()
-                        .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/"));
+                        .successHandler(authenticationSuccessHandler()));
 
         // 동일한 아이디로 다중 로그인 진행할 시(다른 브라우저)
-        http
-                .sessionManagement((session) -> session
-                        .maximumSessions(1) // 하나의 아이디에 대한 다중 로그인 허융개수
-                        .maxSessionsPreventsLogin(false)); // 다중 로그인 개수 초과시 기존 세션 삭제 // true : 새로운 로그인 차단
-        
-        // https://substantial-park-a17.notion.site/10-36136f5a91f647b499dbcb5a884aff72
-        // 세션 고정 공격 보호
-        http
-                .sessionManagement((session) -> session
-                        .sessionFixation().changeSessionId());
+//        http
+//                .sessionManagement((session) -> session
+//                        .maximumSessions(1) // 하나의 아이디에 대한 다중 로그인 허융개수
+//                        .maxSessionsPreventsLogin(false)); // 다중 로그인 개수 초과시 기존 세션 삭제 // true : 새로운 로그인 차단
+//
+//        // https://substantial-park-a17.notion.site/10-36136f5a91f647b499dbcb5a884aff72
+//        // 세션 고정 공격 보호
+//        http
+//                .sessionManagement((session) -> session
+//                        .sessionFixation().changeSessionId());
 
         return http.build();
     }
@@ -59,5 +59,10 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomSocialLoginSuccessHandler();
     }
 }
