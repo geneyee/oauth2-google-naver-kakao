@@ -18,13 +18,13 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-//        UserSecurityDTO dto = (UserSecurityDTO) authentication.getPrincipal();
+        UserSecurityDTO dto = (UserSecurityDTO) authentication.getPrincipal();
 
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
-        log.info("getDetails => {}", userDetails);
+        log.info("getDetails => {}", dto);
 
-        if(userDetails.isSocial()){
+        if(dto.isSocial()){
             response.sendRedirect("/social");
             return;
         } else {

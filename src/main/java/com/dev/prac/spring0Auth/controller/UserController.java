@@ -62,7 +62,9 @@ public class UserController {
     }
 
     @GetMapping("/social")
-    public String social(@AuthenticationPrincipal UserSecurityDTO userSecurityDTO) {
+    public String social(@AuthenticationPrincipal UserSecurityDTO userSecurityDTO, Model model) {
+
+        model.addAttribute("user", userSecurityDTO);
 
         return "social";
     }

@@ -15,11 +15,11 @@
             <div class="card-body">
                 <div class="input-group mb-3">
                     <span class="input-group-text">id</span>
-                    <input type="text" th:value="${id}" readonly>
+                    <input type="text" th:value="${user.username}" readonly>
                 </div>
                 <div class="input-group mb-3">
-                    <span class="input-group-text">role</span>
-                    <input type="text" th:value="${role}" readonly>
+                    <span class="input-group-text">email</span>
+                    <input type="text" th:value="${user.email}" readonly>
                 </div>
             </div>
         </div>

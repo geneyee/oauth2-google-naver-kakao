@@ -41,4 +41,10 @@ public class UserEntity {
         return this.role.getKey();
     }
 
+    public UserEntity update(String username, String picture) {
+        this.username = username;
+        this.picture = picture;
+        return this;
+    }
+
 }

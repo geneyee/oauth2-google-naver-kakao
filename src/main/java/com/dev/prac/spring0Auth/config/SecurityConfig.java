@@ -1,7 +1,9 @@
 package com.dev.prac.spring0Auth.config;
 
 import com.dev.prac.spring0Auth.domain.user.Role;
+import com.dev.prac.spring0Auth.security.CustomOAuth2UserService;
 import com.dev.prac.spring0Auth.security.handler.CustomSocialLoginSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +12,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+//    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -32,6 +37,11 @@ public class SecurityConfig {
 
         http
                 .formLogin((formLogin) -> formLogin
+                        .loginPage("/login")
+                        .successHandler(authenticationSuccessHandler()));
+
+        http
+                .oauth2Login((oauth2Login) -> oauth2Login
                         .loginPage("/login")
                         .successHandler(authenticationSuccessHandler()));
 
