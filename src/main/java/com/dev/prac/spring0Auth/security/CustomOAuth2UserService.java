@@ -39,7 +39,7 @@ public class CustomOAuth2UserService implements OAuth2UserService {
 
         UserEntity user = saveOrUpdate(attributes);
 
-        UserSecurityDTO userSecurityDTO = new UserSecurityDTO(user.getUsername(), passwordEncoder.encode("1234"), user.getEmail(), user.isSocial(),
+        UserSecurityDTO userSecurityDTO = new UserSecurityDTO(user.getId(), user.getUsername(), passwordEncoder.encode("1234"), user.getEmail(), user.isSocial(),
                 Collections.singleton(new GrantedAuthority() {
                     @Override
                     public String getAuthority() {

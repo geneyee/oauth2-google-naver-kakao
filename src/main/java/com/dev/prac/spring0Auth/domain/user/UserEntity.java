@@ -1,5 +1,7 @@
 package com.dev.prac.spring0Auth.domain.user;
 
+import com.dev.prac.spring0Auth.security.dto.UserRequestDTO;
+import com.dev.prac.spring0Auth.security.dto.UserSecurityDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.userdetails.User;
@@ -41,9 +43,16 @@ public class UserEntity {
         return this.role.getKey();
     }
 
+    // oauth 로그인 - email 있으면 update
     public UserEntity update(String username, String picture) {
         this.username = username;
         this.picture = picture;
+        return this;
+    }
+
+    // 정보수정 - 비밀번호
+    public UserEntity modify(String password) {
+        this.password = password;
         return this;
     }
 

@@ -5,10 +5,16 @@ import com.dev.prac.spring0Auth.domain.user.UserEntity;
 import com.dev.prac.spring0Auth.domain.user.UserRepository;
 import com.dev.prac.spring0Auth.dto.JoinDTO;
 import com.dev.prac.spring0Auth.exception.UsernameExistException;
+import com.dev.prac.spring0Auth.security.dto.UserRequestDTO;
+import com.dev.prac.spring0Auth.security.dto.UserSecurityDTO;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -46,5 +52,31 @@ public class UserService {
         user.encodePassword(passwordEncoder.encode(user.getPassword())); // 비밀번호 암호화
         
         userRepository.save(user); // db 저장
+    }
+
+    // id로 조회 후 entity -> dto
+    public UserRequestDTO getId(Integer id) {
+
+        UserEntity entity = userRepository.findById(id).orElseThrow();
+        log.info(entity);
+
+        return UserRequestDTO.of(entity);
+    }
+
+    public void modify(Integer id, UserRequestDTO dto) {
+        log.info("id => {}", id);
+        log.info("비밀번호 수정 dto => {}", dto);
+
+        Optional<UserEntity> target = userRepository.findById(id);
+
+        if(target.isEmpty()){
+            throw new NoSuchElementException();
+        }
+
+        UserEntity entity = target.get();
+        log.info(entity);
+
+        entity.modify(passwordEncoder.encode(dto.getPassword()));
+        userRepository.save(entity);
     }
 }

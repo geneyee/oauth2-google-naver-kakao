@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns="http://www.w3.org/1999/html"
+      layout:decorate="~{layout/common.html}">
+
+<head>
+    <title>정보수정</title>
+</head>
+
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    정보수정
+                </div>
+                <div class="card-body">
+                    <form th:action="@{|/modify/${userRequestDTO.id}|}" th:object="${userRequestDTO}" method="post">
+                        <!--<input type="hidden" name="social" th:value="${userSecurityDTO.social}">-->
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">id</span>
+                            <input type="text" class="form-control" th:field="*{username}" readonly>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">password</span>
+                            <input type="password" class="form-control" name="password" th:value="*{password}" >
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">email</span>
+                            <input type="text" class="form-control" name="email" th:value="*{email}" readonly>
+                        </div>
+                        <div class="my-4">
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-primary submitBtn">정보수정</button>
+                                <button type="reset" class="btn btn-secondary">취소</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

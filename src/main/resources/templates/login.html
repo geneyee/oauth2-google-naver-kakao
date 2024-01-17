@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link th:href="@{/css/button.css}" rel="stylesheet" />
 </head>
 <body class="align-middle" >
 <div class="container-fluid d-flex justify-content-center" style="height: 100vh">
@@ -39,15 +40,17 @@
                         자동 로그인
                     </label>
                 </div>
-                <div class="my-4">
+                <div class="login-buttons my-4">
                     <div class="float-end">
-                        <button type="submit" class="btn btn-primary submitBtn">로그인</button>
+                        <button type="submit" class="btn btn-secondary submitBtn">로그인</button>
+                        <a href="/oauth2/authorization/kakao" class="button-container kakao"><img th:src="@{/image/button/kakao_button.png}" class="img-button"/></a>
                     </div>
                 </div>
             </form>
-            <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google</a>
-            <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver</a>
-            <a href="/oauth2/authorization/kakao"><img th:src="@{/image/kakao_login_button.png}"/></a>
+            <div class="login-buttons my-4">
+                <a href="/oauth2/authorization/google" class="button-container"><img th:src="@{/image/button/google_button.png}" class="img-button"/></a>
+                <a href="/oauth2/authorization/naver" class="button-container"><img th:src="@{/image/button/naver_button.png}" class="img-button naver-button"/></a>
+            </div>
         </div><!--end card body-->
     </div><!--end card-->
 </div>

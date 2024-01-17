@@ -36,6 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService { // 로그�
         UserEntity user = target.get();
 
         UserSecurityDTO userSecurityDTO = new UserSecurityDTO(
+                user.getId(),
                 user.getUsername(),
                 user.getPassword(),
                 user.getEmail(),

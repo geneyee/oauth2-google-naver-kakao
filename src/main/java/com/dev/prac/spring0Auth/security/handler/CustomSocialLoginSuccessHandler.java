@@ -24,11 +24,20 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
 
         log.info("getDetails => {}", dto);
 
-        if(dto.isSocial()){
-            response.sendRedirect("/social");
+        if (dto.isSocial()) {
+            response.sendRedirect("/modify");
             return;
         } else {
             response.sendRedirect("/normal");
         }
+
+/*
+        // ResponseEntity.ok(dto)
+        if(dto.isSocial()){
+            response.sendRedirect("/api/oauth");
+            return;
+        } else {
+            response.sendRedirect("/api/normal");
+        }*/
     }
 }

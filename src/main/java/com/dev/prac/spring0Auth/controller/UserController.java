@@ -3,6 +3,7 @@ package com.dev.prac.spring0Auth.controller;
 import com.dev.prac.spring0Auth.domain.user.UserEntity;
 import com.dev.prac.spring0Auth.dto.JoinDTO;
 import com.dev.prac.spring0Auth.exception.UsernameExistException;
+import com.dev.prac.spring0Auth.security.dto.UserRequestDTO;
 import com.dev.prac.spring0Auth.security.dto.UserSecurityDTO;
 import com.dev.prac.spring0Auth.service.UserService;
 import lombok.extern.log4j.Log4j2;
@@ -76,6 +77,27 @@ public class UserController {
         model.addAttribute("user", user);
 
         return "normal";
+    }
+
+    @GetMapping("/modify")
+    public String modifyForm(@AuthenticationPrincipal UserSecurityDTO dto, UserRequestDTO requestDTO, Model model){
+        log.info("로그인 회원 id => {}", dto.getId());
+        log.info("social => {}", dto.isSocial());
+
+        requestDTO.toForm(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getEmail());
+        model.addAttribute("userRequestDTO", requestDTO);
+        return "modify";
+    }
+
+    @PostMapping("/modify/{id}")
+    public String modify(UserRequestDTO dto, @PathVariable Integer id) {
+
+        UserRequestDTO userDTO = userService.getId(id);
+        log.info(userDTO);
+
+        userService.modify(id, dto);
+
+        return "redirect:/modify";
     }
 
 }
