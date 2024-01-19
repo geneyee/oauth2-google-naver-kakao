@@ -2,8 +2,10 @@ package com.dev.prac.spring0Auth.config;
 
 import com.dev.prac.spring0Auth.domain.user.Role;
 import com.dev.prac.spring0Auth.security.CustomOAuth2UserService;
+import com.dev.prac.spring0Auth.security.CustomUserDetailsService;
 import com.dev.prac.spring0Auth.security.handler.CustomSocialLoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.sqm.mutation.internal.temptable.PersistentTableInsertStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @Configuration
@@ -18,6 +24,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfig {
 
 //    private final CustomOAuth2UserService customOAuth2UserService;
+    private final DataSource dataSource;
+    private final CustomUserDetailsService userDetailsService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -44,6 +52,14 @@ public class SecurityConfig {
                 .oauth2Login((oauth2Login) -> oauth2Login
                         .loginPage("/login")
                         .successHandler(authenticationSuccessHandler()));
+
+        http
+                .rememberMe((remember -> remember
+                        .key("rememberMeKey")
+                        .tokenRepository(persistentTokenRepository())
+                        .userDetailsService(userDetailsService)
+                        .tokenValiditySeconds(60 * 60 * 24 * 30))); // 한달
+
 
         // 동일한 아이디로 다중 로그인 진행할 시(다른 브라우저)
 //        http
@@ -75,4 +91,12 @@ public class SecurityConfig {
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new CustomSocialLoginSuccessHandler();
     }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
+        repository.setDataSource(dataSource);
+        return repository;
+    }
+
 }
