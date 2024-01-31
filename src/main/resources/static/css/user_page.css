@@ -1,0 +1,63 @@
+@charset "utf-8";
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+
+/* reset */
+ul { padding: 0; }
+li { list-style: none; }
+span {
+    font-family:'Pretendard', '맑은고딕', 'MalgunGothic', sans-serif !important;
+    list-style: none !important;
+
+}
+button { font-family:'Pretendard', '맑은고딕', 'MalgunGothic', sans-serif !important; }
+
+.container_wrap { width: 100%; height: 100%; padding: 100px 0; background-color: #e5e5e5; }
+.container_wrap .content { width: 100%;  max-width: 800px; margin: 0 auto; padding: 50px; background: #fff; }
+.container_wrap .content .title { display: block; font-size: 28px; font-weight: 700; color: #111; padding-bottom: 20px; }
+
+.container_wrap .content .profile_wrap { width: 100%; }
+.container_wrap .content .profile_wrap ul { display: table; font-size: 0; width: 100%; }
+.container_wrap .content .profile_wrap ul li { display: table-cell; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; box-sizing: border-box; vertical-align: top; }
+.container_wrap .content .profile_wrap ul li:nth-child(1)  { width: 20%; padding: 12px 0; }
+.container_wrap .content .profile_wrap ul li:nth-child(2)  { width: 15%; padding:12px; }
+.container_wrap .content .profile_wrap ul li:nth-child(3)  { width: 65%; padding:12px 0; }
+.container_wrap .content .profile_wrap ul li span {  display: block; font-size: 18px; color: #111; font-weight: 600; }
+.container_wrap .content .profile_wrap ul li img { display: block; width: 100%; max-width: 74px; padding: 10px; background-color: #f9f9f9; border-radius: 5px; }
+.container_wrap .content .profile_wrap ul li.img_select_btn button { background-color: #ededed; color: #111; padding: 10px 30px; border-radius: 0; font-size: 15px; border: 0; font-weight: 300; margin-bottom: 10px; }
+.container_wrap .content .profile_wrap ul li.img_select_btn span.ex_t { display: block; font-size: 14px; line-height: 1.4; color: #707070; font-weight: 300; }
+
+
+.container_wrap .content .id_wrap { width: 100%; }
+.container_wrap .content .id_wrap ul { display: table; font-size: 0; width: 100%; }
+.container_wrap .content .id_wrap ul li { display: table-cell; border-bottom: 1px solid #e5e5e5; box-sizing: border-box; vertical-align: top; }
+.container_wrap .content .id_wrap ul li:nth-child(1)  { width: 20%; padding: 12px 0; }
+.container_wrap .content .id_wrap ul li:nth-child(2)  { width: 80%; padding:12px;  }
+.container_wrap .content .id_wrap ul li span { display: block; font-size: 18px; color: #111; font-weight: 600; }
+.container_wrap .content .id_wrap ul li div { display: block; }
+.container_wrap .content .id_wrap ul li div input.input_box { vertical-align: middle; height: 2em; line-height: 2em; border: 1px solid #aaa; padding: 5px; width: 60%; }
+
+.container_wrap .content .pw_wrap { width: 100%; }
+.container_wrap .content .pw_wrap ul { display: table; font-size: 0; width: 100%; }
+.container_wrap .content .pw_wrap ul li { display: table-cell; border-bottom: 1px solid #e5e5e5; box-sizing: border-box; vertical-align: top; }
+.container_wrap .content .pw_wrap ul li:nth-child(1)  { width: 20%; padding: 12px 0; }
+.container_wrap .content .pw_wrap ul li:nth-child(2)  { width: 80%; padding:12px; }
+.container_wrap .content .pw_wrap ul li span { display: block; font-size: 18px; color: #111; font-weight: 600; }
+.container_wrap .content .pw_wrap ul li div { display: block; }
+.container_wrap .content .pw_wrap ul li div input.input_box { vertical-align: middle; height: 2em; line-height: 2em; border: 1px solid #aaa; padding: 5px; width: 60%; }
+
+.container_wrap .content .email_wrap {width: 100%;  }
+.container_wrap .content .email_wrap ul { display: table; font-size: 0; width: 100%; }
+.container_wrap .content .email_wrap ul li { display: table-cell; border-bottom: 1px solid #e5e5e5; box-sizing: border-box; vertical-align: top; }
+.container_wrap .content .email_wrap ul li:nth-child(1)  { width: 20%; padding: 12px 0; }
+.container_wrap .content .email_wrap ul li:nth-child(2)  { width: 80%; padding:12px; }
+.container_wrap .content .email_wrap ul li span { display: block; font-size: 18px; color: #111; font-weight: 600; }
+.container_wrap .content .email_wrap ul li div { display: block; }
+.container_wrap .content .email_wrap ul li div input.input_box { vertical-align: middle; height: 2em; line-height: 2em; border: 1px solid #aaa; padding: 5px; width: 60%; }
+
+.button_wrap { width: 100%;  padding-top: 30px; }
+.button_wrap button:nth-child(1) { background-color: #f3f4fa; color: #03166c; padding: 10px 50px; border-radius: 0; font-size: 15px; border: 0; font-weight: 600; }
+.button_wrap button:nth-child(2) { background-color: #03166c; color: #fff; padding: 10px 50px; border-radius: 0; font-size: 15px; border: 0; font-weight: 600; }
+
+
+

@@ -9,6 +9,7 @@ import com.dev.prac.spring0Auth.service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,9 +85,9 @@ public class UserController {
         log.info("로그인 회원 id => {}", dto.getId());
         log.info("social => {}", dto.isSocial());
 
-        requestDTO.toForm(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getEmail());
+        requestDTO.toForm(dto.getId(), dto.getUsername(), dto.getPassword(), dto.getEmail(), dto.getPicture());
         model.addAttribute("userRequestDTO", requestDTO);
-        return "modify";
+        return "user_page";
     }
 
     @PostMapping("/modify/{id}")
@@ -98,6 +99,17 @@ public class UserController {
         userService.modify(id, dto);
 
         return "redirect:/modify";
+    }
+
+    @PostMapping("/user/{id}")
+    public String userPage(UserRequestDTO dto, @PathVariable Integer id) {
+
+        UserRequestDTO userDTO = userService.getId(id);
+        log.info(userDTO);
+
+        userService.modify(id, dto);
+
+        return "redirect:/user_page";
     }
 
 }

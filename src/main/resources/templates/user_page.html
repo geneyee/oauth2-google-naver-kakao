@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>회원정보수정 페이지</title>
+    <meta charset='utf-8'>
+    <meta name='Viewport'
+          content='width=device-width, user-scalable=no , initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0'>
+    <meta name='Title' content='회원정보수정 페이지'>
+    <meta name='Subject' content='회원정보수정 페이지'>
+    <meta name='format-detection' content='telephone=no'>
+    <meta name='Publisher' content='이유진'>
+    <meta name='Keywords' content='회원정보,프로필,수정'>
+    <meta name='Description' content='회원정보수정 페이지 제작'>
+    <meta name='Author' content='프로필페이지'>
+    <meta name='Author-Date' content='2.24-01-21'>
+    <meta name='Robots' content='index,follow'>
+
+    <link rel='stylesheet' type='text/css' href='./css/fonts.css'>
+    <link rel='stylesheet' type='text/css' href='./css/user_page.css'>
+
+
+</head>
+<body>
+<!-- 로딩화면 -->
+<div class="container_wrap">
+    <div class="content">
+        <span class="title">회원정보</span>
+        <div class="card-body">
+            <form th:action="@{|/user/${userRequestDTO.id}|}" th:object="${userRequestDTO}" method="post">
+                <div class="profile_wrap">
+                    <ul>
+                        <li><span>프로필 이미지</span></li>
+                        <th:block th:if="*{picture} == null">
+                            <li><img src='./image/icon-profile.png' alt='프로필이미지'></li>
+                        </th:block>
+                        <th:block th:if="*{picture} != null">
+                            <li>
+                                <div><img th:src="*{picture}">
+                                    <input type="hidden" class="form-control" name="picture" readonly></div>
+                            </li>
+                        </th:block>
+                        <li class="img_select_btn">
+                            <button>파일선택</button>
+
+                            <span class="ex_t">
+                        JPG, GIF, PNG<br>
+                        권장 사이즈 128px, 최대 250KB
+                    </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="id_wrap">
+                    <ul>
+                        <li><span>아이디</span></li>
+                        <li>
+                            <div><input type="text" placeholder="아이디" class="input_box" th:field="*{username}" readonly>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pw_wrap">
+                    <ul>
+                        <li><span>비밀번호</span></li>
+                        <li>
+                            <div><input type="password" class="input_box" name="password" th:value="*{password}"></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="email_wrap">
+                    <ul>
+                        <li><span>이메일</span></li>
+                        <li>
+                            <div><input type="email" class="input_box" name="email" th:value="*{email}" readonly></div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="button_wrap">
+                    <button>취소</button>
+                    <button>정보수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+	

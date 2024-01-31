@@ -24,17 +24,19 @@ public class UserSecurityDTO extends User implements OAuth2User {
     private String password;
     private String email;
     private boolean social;
+    private String picture;
 
     private Map<String, Object> attributes;
 
     public UserSecurityDTO(Integer id, String username, String password, String email, boolean social,
-                           Collection<? extends GrantedAuthority> authorities) {
+                           Collection<? extends GrantedAuthority> authorities, String picture) {
         super(username, password, authorities);
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.social = social;
+        this.picture = picture;
     }
 
     @Override

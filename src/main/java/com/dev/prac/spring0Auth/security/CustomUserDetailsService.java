@@ -41,7 +41,8 @@ public class CustomUserDetailsService implements UserDetailsService { // 로그�
                 user.getPassword(),
                 user.getEmail(),
                 false,
-                Collections.singleton(user.getRole()));
+                Collections.singleton(user.getRole()),
+                user.getPicture());
         log.info("userSecurityDTO => {}", userSecurityDTO);
 
         return userSecurityDTO;

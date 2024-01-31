@@ -1,34 +1,16 @@
-.btn.btn-secondary.submitBtn { display:inline-block; }
-.button-container.kakao { display:inline-block; }
-
-.login-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center; /* 버튼들을 세로 방향으로 중앙에 위치시킵니다 */
-  width: 100%;
-}
-.login-buttons.float-end {
-    display: flex;
-    float: none;
-    width: 100%;
-}
-.login-buttons.submitBtn {
-    width: 100%;
-}
-.img-button a {
-  display: block; /* 또는 'inline-block' */
-  width: 30%; /* 여기서는 각 버튼이 전체 너비의 30%를 차지하도록 설정했습니다. */
-  margin: 0.5%; /* 버튼 사이의 간격을 위해 마진을 추가합니다. */
-}
-.img-button {
-  width: 100%; /* 부모 요소의 너비에 맞춰 자동으로 크기 조절 */
-  height: auto; /* 비율을 유지하기 위해 높이는 'auto'로 설정 */
-}
-.naver-button {
-  max-width: 180px; /* 원하는 최대 너비 설정 */
-  max-height: 40px; /* 원하는 최대 높이 설정 */
-  width: auto; /* 비율을 유지하기 위해 너비는 자동으로 설정 */
-  height: auto; /* 비율을 유지하기 위해 높이는 자동으로 설정 */
-}
-
+/*소셜로그인 가운데정렬*/
+.login-buttons.sns { positon:relative; z-index:1; padding-top:30px; text-align:center; margin:0 auto; border-top:1px solid #ddd; }
+/*소셜로그인 이미지 사이즈*/
+.login-buttons.sns a img.img-button.kakao { width:100%; max-width:45px; }
+.login-buttons.sns a img.img-button.naver { width:100%; max-width:40px; }
+/*소셜로그인 이미지 간격*/
+.login-buttons.sns a img { margin:0 5px; }
+/*로그인폼버튼 정렬*/
+.float-end.submitWrap { float:none !important; }
+/*로그인폼버튼 넓이*/
+.btn.btn-secondary.submitBtn { margin:0 auto; width:80%; display:block; }
+.login-buttons.my-4 { margin-bottom:2.6rem !important; }
+/*로그인체크박스조정*/
+.form-check-input { margin-right:5px; }
+/*소셜로그인 텍스트*/
+.snsTxt { position:absolute; z-index:2; margin-top:-18px; left:50%; margin-left:-45px; font-size:15px; line-height:1.2; color:#555; display:inline-block; background:#fff; padding:10px; }

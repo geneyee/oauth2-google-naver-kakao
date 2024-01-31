@@ -45,7 +45,7 @@ public class CustomOAuth2UserService implements OAuth2UserService {
                     public String getAuthority() {
                         return user.getRoleKey();
                     }
-                }));
+                }), user.getPicture());
 
         userSecurityDTO.updateAttributes(attributes.getAttributes());
 

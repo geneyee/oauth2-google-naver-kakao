@@ -41,15 +41,16 @@
                     </label>
                 </div>
                 <div class="login-buttons my-4">
-                    <div class="float-end">
+                    <div class="float-end submitWrap">
                         <button type="submit" class="btn btn-secondary submitBtn">로그인</button>
                     </div>
                 </div>
             </form>
-            <div class="login-buttons my-4">
-                <a href="/oauth2/authorization/google" class="button-container"><img th:src="@{/image/button/google_button.png}" class="img-button"/></a>
-                <a href="/oauth2/authorization/kakao" class="button-container kakao"><img th:src="@{/image/button/kakao_button.png}" class="img-button"/></a>
-                <a href="/oauth2/authorization/naver" class="button-container"><img th:src="@{/image/button/naver_button.png}" class="img-button naver-button"/></a>
+            <span class="snsTxt">소셜로그인</span>
+            <div class="login-buttons sns my-4 ">
+                <a href="/oauth2/authorization/google" class="button-container "><img th:src="@{/image/button/google_button.png}" class="img-button google"/></a>
+                <a href="/oauth2/authorization/kakao" class="button-container "><img th:src="@{/image/button/kakao_button.png}" class="img-button kakao"/></a>
+                <a href="/oauth2/authorization/naver" class="button-container"><img th:src="@{/image/button/naver_button.png}" class="img-button naver"/></a>
             </div>
         </div><!--end card body-->
     </div><!--end card-->

@@ -1,10 +1,11 @@
 package com.dev.prac.spring0Auth.domain.user;
 
-import com.dev.prac.spring0Auth.security.dto.UserRequestDTO;
-import com.dev.prac.spring0Auth.security.dto.UserSecurityDTO;
+import com.dev.prac.spring0Auth.domain.upload.UserImage;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.userdetails.User;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,6 +25,9 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<UserImage> imageSet;
 
     @Builder
     public UserEntity(String username, String password, String email, String picture, boolean social, Role role) {
@@ -54,6 +58,25 @@ public class UserEntity {
     public UserEntity modify(String password) {
         this.password = password;
         return this;
+    }
+
+    // 이미지 추가
+    public void addImage(String uuid, String fileName) {
+
+        UserImage userImage = UserImage.builder()
+                .uuid(uuid)
+                .fileName(fileName)
+                .ord(imageSet.size())
+                .userEntity(this)
+                .build();
+
+        imageSet.add(userImage);
+    }
+
+    // 이미지 삭제
+    public void clearImage() {
+        imageSet.forEach(userImage -> userImage.changeUser(null));
+        this.imageSet.clear();
     }
 
 }

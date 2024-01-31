@@ -77,6 +77,8 @@ public class UserService {
         log.info(entity);
 
         entity.modify(passwordEncoder.encode(dto.getPassword()));
+
+
         userRepository.save(entity);
     }
 }
