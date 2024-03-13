@@ -1,32 +1,23 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/common.html}">
+
 <head>
-    <title>회원정보수정 페이지</title>
-    <meta charset='utf-8'>
-    <meta name='Viewport'
-          content='width=device-width, user-scalable=no , initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0'>
-    <meta name='Title' content='회원정보수정 페이지'>
-    <meta name='Subject' content='회원정보수정 페이지'>
-    <meta name='format-detection' content='telephone=no'>
-    <meta name='Publisher' content='이유진'>
-    <meta name='Keywords' content='회원정보,프로필,수정'>
-    <meta name='Description' content='회원정보수정 페이지 제작'>
-    <meta name='Author' content='프로필페이지'>
-    <meta name='Author-Date' content='2.24-01-21'>
-    <meta name='Robots' content='index,follow'>
-
-    <link rel='stylesheet' type='text/css' href='./css/fonts.css'>
-    <link rel='stylesheet' type='text/css' href='./css/user_page.css'>
-
-
+    <title>정보수정</title>
+    <!--user_page.css-->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" href="/css/user_page.css">
+    </th:block>
 </head>
-<body>
 <!-- 로딩화면 -->
+<div layout:fragment="content">
 <div class="container_wrap">
     <div class="content">
         <span class="title">회원정보</span>
         <div class="card-body">
-            <form th:action="@{|/user/${userRequestDTO.id}|}" th:object="${userRequestDTO}" method="post">
+            <form th:action="@{|/user/${userRequestDTO.id}|}" th:object="${userRequestDTO}" method="post" enctype="multipart/form-data">
                 <div class="profile_wrap">
                     <ul>
                         <li><span>프로필 이미지</span></li>
@@ -40,8 +31,8 @@
                             </li>
                         </th:block>
                         <li class="img_select_btn">
-                            <button>파일선택</button>
-
+                            <input type="file" class="form-control" name="uploadFile" accept="image/*" multiple="multiple" >
+<!--                            <button>파일선택</button>-->
                             <span class="ex_t">
                         JPG, GIF, PNG<br>
                         권장 사이즈 128px, 최대 250KB
@@ -53,8 +44,7 @@
                     <ul>
                         <li><span>아이디</span></li>
                         <li>
-                            <div><input type="text" placeholder="아이디" class="input_box" th:field="*{username}" readonly>
-                            </div>
+                            <div><input type="text" class="input_box" th:value="*{username}" readonly></div>
                         </li>
                     </ul>
                 </div>
@@ -76,8 +66,8 @@
                 </div>
 
                 <div class="button_wrap">
-                    <button>취소</button>
-                    <button>정보수정</button>
+                    <button type="reset">취소</button>
+                    <button type="submit">정보수정</button>
                 </div>
             </form>
         </div>
@@ -85,12 +75,9 @@
 
 
 </div>
-
-
+</div>
 </body>
 </html>
-
-
 
 
 

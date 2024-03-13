@@ -2,6 +2,7 @@ package com.dev.prac.spring0Auth.controller;
 
 import com.dev.prac.spring0Auth.domain.user.UserEntity;
 import com.dev.prac.spring0Auth.dto.JoinDTO;
+import com.dev.prac.spring0Auth.dto.UploadFileDTO;
 import com.dev.prac.spring0Auth.exception.UsernameExistException;
 import com.dev.prac.spring0Auth.security.dto.UserRequestDTO;
 import com.dev.prac.spring0Auth.security.dto.UserSecurityDTO;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Log4j2
 @Controller
@@ -59,7 +63,10 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String admin() {
+    public String admin(Model model) {
+        List<UserEntity> userList = new ArrayList<>();
+        userList = userService.userList();
+        model.addAttribute("userList", userList);
         return "admin";
     }
 
@@ -96,7 +103,9 @@ public class UserController {
         UserRequestDTO userDTO = userService.getId(id);
         log.info(userDTO);
 
-        userService.modify(id, dto);
+        UploadFileDTO profile = userService.uploadFile(dto.getUploadFile());
+        dto.setPicture(profile.getFileName());
+        UserRequestDTO update = userService.modify(id, dto);
 
         return "redirect:/modify";
     }
@@ -109,7 +118,7 @@ public class UserController {
 
         userService.modify(id, dto);
 
-        return "redirect:/user_page";
+        return "redirect:/modify";
     }
 
 }

@@ -4,6 +4,7 @@ import com.dev.prac.spring0Auth.domain.upload.UserImage;
 import com.dev.prac.spring0Auth.domain.user.UserEntity;
 import lombok.*;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collections;
 
@@ -18,7 +19,7 @@ public class UserRequestDTO {
     private String password;
     private String email;
     private String picture; // 이미지 파일 이름
-    private UserImage userImage; // 이미지 파일
+    private MultipartFile uploadFile; // 이미지 파일
 
     @Builder
     public UserRequestDTO(String username, String password, String email, String picture) {
@@ -37,8 +38,14 @@ public class UserRequestDTO {
         return this;
     }
 
+    // entity to dto
     public static UserRequestDTO of(UserEntity user) {
-        return new UserRequestDTO(user.getUsername(), user.getPassword(), user.getEmail(), user.getPicture());
+        return UserRequestDTO.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .email(user.getEmail())
+                .picture(user.getPicture())
+                .build();
     }
 
     // dto to entity
@@ -50,12 +57,11 @@ public class UserRequestDTO {
                 .email(email)
                 .build();
 
-        if (userRequestDTO.getPicture() != null) {
+/*        if (userRequestDTO.getPicture() != null) {
             String[] arr = userRequestDTO.getPicture().split("_");
             entity.addImage(arr[0], arr[1]);
-        }
+        }*/
         return entity;
     }
-
 
 }

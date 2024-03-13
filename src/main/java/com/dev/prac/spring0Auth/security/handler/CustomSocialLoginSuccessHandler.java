@@ -24,12 +24,20 @@ public class CustomSocialLoginSuccessHandler implements AuthenticationSuccessHan
 
         log.info("getDetails => {}", dto);
 
-        if (dto.isSocial()) {
-            response.sendRedirect("/modify");
-            return;
+        // 관리자 -> 관리자 페이지 나머지 일반회원은 정보수정 페이지. 소셜로그인 회원은 비밀번호 수정 필수
+        if (dto.getUsername().equals("admin")) {
+            response.sendRedirect("/admin");
         } else {
-            response.sendRedirect("/normal");
+            response.sendRedirect("/modify");
         }
+
+        // 소셜 로그인 확인
+//        if (dto.isSocial()) {
+//            response.sendRedirect("/modify");
+//            return;
+//        } else {
+//            response.sendRedirect("/normal");
+//        }
 
 /*
         // ResponseEntity.ok(dto)
