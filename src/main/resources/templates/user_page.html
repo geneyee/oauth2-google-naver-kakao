@@ -27,11 +27,11 @@
                         <th:block th:if="*{picture} != null">
                             <li>
                                 <div><img th:src="*{picture}">
-                                    <input type="hidden" class="form-control" name="picture" readonly></div>
+                                    <input type="hidden" class="form-control" th:value="${picture}"></div>
                             </li>
                         </th:block>
                         <li class="img_select_btn">
-                            <input type="file" class="form-control" name="uploadFile" accept="image/*" multiple="multiple" >
+                            <input type="file" class="form-control" name="uploadFile" accept="image/*"><!--multiple="multiple"-->
 <!--                            <button>파일선택</button>-->
                             <span class="ex_t">
                         JPG, GIF, PNG<br>

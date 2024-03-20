@@ -80,11 +80,23 @@ public class UserService {
 
         UserEntity entity = target.get();
         log.info("비밀번호 수정 전 => {}", entity.getPassword());
+        log.info("프로필 수정 전 => {}", entity.getPicture());
+
+        MultipartFile uploadFile = dto.getUploadFile();
+
+        if (uploadFile.getSize() > 0) {
+            String fileName = uploadFile(uploadFile).getFileName();
+            log.info("프로필 업로드 => {}", fileName);
+
+//            dto.setPicture(fileName);
+            entity.addImage(fileName);
+        }
 
         entity.modify(passwordEncoder.encode(dto.getPassword()));
 
         UserEntity save = userRepository.save(entity);
         log.info("비밀번호 수정 후 => {}", entity.getPassword());
+        log.info("프로필 수정 후 => {}", entity.getPicture());
 
         return UserRequestDTO.of(save);
     }
@@ -117,4 +129,11 @@ public class UserService {
 
     // 해야할거
     // 위 방법 말고 스프링으로 했던거 참고해서 하면 될듯??
+
+
+    // security 이미지 / 프로필 이미지
+//    public String changeImage(Integer id, UserSecurityDTO dto, UserRequestDTO userRequestDTO) {
+//
+//
+//    }
 }

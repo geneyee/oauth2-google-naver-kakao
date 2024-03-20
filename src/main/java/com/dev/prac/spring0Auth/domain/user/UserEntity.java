@@ -30,8 +30,6 @@ public class UserEntity {
 //    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 //    private Set<UserImage> imageSet;
 
-//    private MultipartFile userImage; // 클라이언트가 보낸 파일 data 저장 객체
-
     @Builder
     public UserEntity(String username, String password, String email, String picture, boolean social, Role role) {
         this.username = username;
@@ -60,6 +58,12 @@ public class UserEntity {
     // 정보수정 - 비밀번호
     public UserEntity modify(String password) {
         this.password = password;
+        return this;
+    }
+
+    // 정보수정 - 프로필
+    public UserEntity addImage(String fileName) {
+        this.picture = fileName;
         return this;
     }
 
